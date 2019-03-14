@@ -1,21 +1,18 @@
-require 'minitest/autorun'
 require_relative '../../app/models/todo'
-
-def db_conf
-	db_conf_file = File.join(File.expand_path('..', __dir__), '..', 'db', 'config.yml')
-	YAML.load(File.read(db_conf_file))
-end
-
-ActiveRecord::Base.establish_connection(db_conf['test'])
+require_relative '../test_helper'
 
 describe Todo do
 	before do
-		@todo = Todo.create(title: 'first todo')
+		@todo = FactoryBot.create(:wash_dishes)
 	end
 
 	describe 'todo attributes' do
 		it 'should have its attributes' do
-			@todo.title.must_equal 'first todo'
+			@todo.title.must_equal 'wash dishes'
 		end
+	end
+
+	after do
+  	Todo.all.destroy_all
 	end
 end
