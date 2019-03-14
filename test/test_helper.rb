@@ -12,3 +12,4 @@ ActiveRecord::Base.establish_connection(db_conf['test'])
 class Minitest::Unit::TestCase
   include FactoryBot::Syntax::Methods
 end
+
