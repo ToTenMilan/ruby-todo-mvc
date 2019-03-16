@@ -2,6 +2,14 @@ require_relative '../models/todo'
 require_relative 'application_controller'
 
 class TodosController < ApplicationController
+	def index(params = nil)
+		if params
+			Todo.where('completed = ?', params[:completed])
+		else
+			Todo.order(title: 'ASC').all
+		end
+	end
+
 	def create(params)
 		Todo.create!(params)
 	end

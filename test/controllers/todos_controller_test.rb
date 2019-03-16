@@ -13,6 +13,12 @@ class TodoTest < Minitest::Test
 				create(:wash_dishes)
 				assert_equal [Todo.first, Todo.second], @todos_controller.index
 			end
+
+			it 'should show all completed tasks' do
+				create(:todo)
+				create(:wash_dishes)
+				assert_equal [Todo.first], @todos_controller.index(completed: true)
+			end
 		end
 
 		describe 'create' do
