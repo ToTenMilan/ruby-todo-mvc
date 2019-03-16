@@ -7,6 +7,14 @@ class TodoTest < Minitest::Test
 			@todos_controller = TodosController.new
 		end
 
+		describe 'index' do
+			it 'should show all tasks' do
+				create(:todo)
+				create(:wash_dishes)
+				assert_equal [Todo.first, Todo.second], @todos_controller.index
+			end
+		end
+
 		describe 'create' do
 			it 'should create todo' do
 				@todos_controller.create(title: 'foo', description: 'bar')
