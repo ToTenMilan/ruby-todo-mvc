@@ -43,6 +43,15 @@ class TodoTest < Minitest::Test
 			end
 		end
 
+		describe 'update' do
+			it 'should update only completness status of todo' do
+				todo = create(:wash_dishes)
+				@todos_controller.update(id: todo.id, completed: true)
+				assert_equal 'wash dishes', todo.title
+				assert_equal true, todo.completed
+			end
+		end
+
 		after do
 	  	Todo.all.destroy_all
 		end
