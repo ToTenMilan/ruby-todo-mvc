@@ -35,11 +35,10 @@ class TodoTest < Minitest::Test
 				assert_equal 0, Todo.count
 			end
 
-			it 'should raise error if todo not found' do
+			it 'should return message if todo not found' do
 				todo = create(:wash_dishes)
-				assert_raises ActiveRecord::RecordNotFound do
-					@todos_controller.destroy(id: todo.id - 1)
-				end
+				message = 'Todo not found'
+				assert_equal message, @todos_controller.destroy(id: todo.id - 1)
 			end
 		end
 
@@ -47,8 +46,15 @@ class TodoTest < Minitest::Test
 			it 'should update only completness status of todo' do
 				todo = create(:wash_dishes)
 				@todos_controller.update(id: todo.id, completed: true)
+				todo.reload
 				assert_equal 'wash dishes', todo.title
 				assert_equal true, todo.completed
+			end
+
+			it 'should return message if todo not found' do
+				todo = create(:wash_dishes)
+				message = 'Todo not found'
+				assert_equal message, @todos_controller.update(id: todo.id - 1)
 			end
 		end
 
