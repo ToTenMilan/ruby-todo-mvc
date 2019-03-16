@@ -4,9 +4,9 @@ require_relative 'application_controller'
 class TodosController < ApplicationController
 	def index(params = nil)
 		if params
-			Todo.where('completed = ?', params[:completed])
+			Todo.where('completed = ?', params[:completed]).order(title: 'ASC')
 		else
-			Todo.order(title: 'ASC').all
+			Todo.order(title: 'ASC')
 		end
 	end
 
