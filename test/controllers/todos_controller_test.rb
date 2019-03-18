@@ -1,5 +1,5 @@
-require_relative '../../app/controllers/todos_controller'
-require_relative '../test_helper'
+require './app/controllers/todos_controller'
+require './test/test_helper'
 
 class TodoTest < Minitest::Test
 	describe TodosController do

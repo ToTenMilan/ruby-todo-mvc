@@ -1,12 +1,20 @@
-# Console TO DO LIST!
+#### TODO MVC Ruby console app
 
-# As Technical challenge we want you to write your own TODO app.
+### Setup
 
-# # Rules
+this will setup the app for you, and run it first time:
+```
+bin/setup
+```
 
-# It should be a console app. Pure ruby is a plus but feel free to use any gems as you want to make your work done easier.
+Ctrl+C or `Quit` to exit.
 
-# # Acceptance criteria
+to run app again, type:
+```
+./main.rb
+```
+
+### User stories
 
 # As a user I should:
 
@@ -20,7 +28,3 @@
 # 8. As a user I can turn off and turn on app and load previously added tasks.
 # 9. Produced software should be well tested.
 # 10. Automated review/build process is a plus.
-
-# # Summary
-
-# It can be open source (just give us a link to a public repo on GitHub/GitLab)

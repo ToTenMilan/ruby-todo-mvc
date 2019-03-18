@@ -1,4 +1,27 @@
 #!/usr/bin/env ruby
-rake db:create
-rake db:migrate
-rake db:test:prepare
+require 'pathname'
+require 'fileutils'
+include FileUtils
+
+APP_ROOT = Pathname.new File.expand_path('../../', __FILE__)
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+chdir APP_ROOT do
+	system('bundle check') || system!('bundle install')
+	
+	system! 'rake db:create'
+	system! 'rake db:migrate'
+	system! 'rake db:test:prepare'
+
+	puts '== running tests'
+	system 'rake test'
+
+	puts '== seed data'
+	system 'rake db:seed'
+
+	puts "== Enjoy!\n"
+	system! './main.rb'
+end

@@ -6,12 +6,9 @@ require './app/helpers/todos_helper'
 require './lib/string'
 include TodosHelper
 
-
-
 def start
 	cli = HighLine.new
 	todos_controller = TodosController.new
-	# answer = cli.ask "What you think?"
 	params = nil
 
 	puts "Welcome in ToDoApp - Here are your all todos:\n"
@@ -42,10 +39,9 @@ def start
 			end
 
 			menu.choice('[OPTION] remove todo') do
-				menu.prompt = "\nSelect todo to remove"
-
 				todos = todos_controller.index
 				cli.choose do |remove_menu|
+					remove_menu.prompt = "\nSelect todo to remove"
 					todos.each do |td|
 						remove_menu.choice("[REMOVE] #{td.title}") { todos_controller.destroy(id: td.id); cli.say('Todo removed') }
 					end
@@ -66,10 +62,10 @@ def start
 			end
 
 			menu.choice(:Quit, "Exit program.") { exit }
-		# rescue SystemExit, Interrupt
-	 #  	raise "Exiting..."
-	 #  	exit
 		end
+	rescue SystemExit, Interrupt
+  	puts "Exiting..."
+  	exit
 	end
 end
 
