@@ -17,7 +17,7 @@
 # 5. As a user I can list all completed task
 # 6. As a user I can list all uncompleted task
 # 7. Task list should be stored on disk (file, SQLite, etc.)
-# 8. As a user I can turn off and turn app and load previously added tasks.
+# 8. As a user I can turn off and turn on app and load previously added tasks.
 # 9. Produced software should be well tested.
 # 10. Automated review/build process is a plus.
 

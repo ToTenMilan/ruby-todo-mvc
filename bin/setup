@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
-# rake db:create
-# rake db:migrate
-# rake db:test:prepare
+rake db:create
+rake db:migrate
+rake db:test:prepare

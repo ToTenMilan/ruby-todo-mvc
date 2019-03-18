@@ -6,67 +6,74 @@ require './app/helpers/todos_helper'
 require './lib/string'
 include TodosHelper
 
-cli = HighLine.new
-todos_controller = TodosController.new
-# answer = cli.ask "What you think?"
-puts "Welcome in ToDoApp - Here are your all todos:\n"
 
-# check = "\u2713".green
-# cross = "\u274C".red
 
-params = nil
+def start
+	cli = HighLine.new
+	todos_controller = TodosController.new
+	# answer = cli.ask "What you think?"
+	params = nil
 
-loop do
-	cli.choose do |menu|
-		menu.prompt = "\nSelect option to choose or task to toggle its completeness"
+	puts "Welcome in ToDoApp - Here are your all todos:\n"
 
-		menu.choice('[OPTION] Add new todo') do
-			title = cli.ask("todo title: ")
-			description = cli.ask("todo description: ")
-			todos_controller.create(title: title, description: description)
-			puts "You have created ToDo titled: #{title}"
-		end
+	loop do
+		cli.choose do |menu|
+			menu.prompt = "\nSelect option to choose or task to toggle its completeness"
 
-		menu.choice('[OPTION] show only undone todos') do
-			params = { completed: false }
-		end
-
-		menu.choice('[OPTION] show only done todos') do
-			params = { completed: true }
-		end
-
-		menu.choice('[OPTION] show all todos') do
-			params = nil
-		end
-
-		todos = todos_controller.index(params)
-		cli.say "\n"
-		todos.each do |td|
-			menu.choice("[#{humanize(td.completed)}] #{td.title}") do
-				todos_controller.update(id: td.id, completed: !td.completed)
-				puts ("#{td.title} is now #{humanize(!td.completed)}")
+			menu.choice('[OPTION] Add new todo') do
+				title = cli.ask("todo title: ")
+				description = cli.ask("todo description: ")
+				todos_controller.create(title: title, description: description)
+				puts "You have created ToDo titled: #{title}"
 			end
-		end
 
-		menu.choice(:Quit, "Exit program.") { exit }
+			menu.choice('[OPTION] show undone todos') do
+				params = { completed: false }
+			end
+
+			menu.choice('[OPTION] show done todos') do
+				params = { completed: true }
+			end
+
+			puts menu.singleton_methods(false)
+
+			menu.choice('[OPTION] show all todos') do
+				params = nil
+			end
+
+			menu.choice('[OPTION] remove todo') do
+				menu.prompt = "\nSelect todo to remove"
+
+				todos = todos_controller.index
+				cli.choose do |remove_menu|
+					todos.each do |td|
+						remove_menu.choice("[REMOVE] #{td.title}") { todos_controller.destroy(id: td.id); cli.say('Todo removed') }
+					end
+
+					remove_menu.choice('Go back') do
+						next
+					end
+				end
+			end
+
+			todos = todos_controller.index(params)
+			cli.say "\n"
+			todos.each do |td|
+				menu.choice("[#{humanize(td.completed)}] #{td.title}") do
+					todos_controller.update(id: td.id, completed: !td.completed)
+					puts ("#{td.title} is now #{humanize(!td.completed)}")
+				end
+			end
+
+			menu.choice(:Quit, "Exit program.") { exit }
+		# rescue SystemExit, Interrupt
+	 #  	raise "Exiting..."
+	 #  	exit
+		end
 	end
 end
 
-# cli.choose do |menu|
-# 	menu.prompt = 'What would you like to do?'
-# 	# menu.choice('show all todos')
-# 	menu.choice('add new todo') do
-# 		title = cli.ask("todo title: ")
-# 		description = cli.ask("todo description: ")
-# 		todos_controller.create(title: title, description: description)
-# 		puts "You have created ToDo titled: #{title}"
-# 	end
-# 	# menu.choice('update todo')
-# end
-
-
-
-
+start
 
 
 # # Default answer
