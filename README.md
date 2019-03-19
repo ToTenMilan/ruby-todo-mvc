@@ -9,9 +9,14 @@ bin/setup
 
 Ctrl+C or `Quit` to exit.
 
-to run app again, type:
+to run app again:
 ```
 ./main.rb
+```
+
+to run tests:
+```
+rake test
 ```
 
 #### User stories

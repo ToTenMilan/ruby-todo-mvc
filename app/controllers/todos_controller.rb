@@ -1,40 +1,39 @@
 require_relative '../models/todo'
-require_relative 'application_controller'
 
-class TodosController < ApplicationController
-	def index(params = nil)
-		if params
-			Todo.where('completed = ?', params[:completed]).order(title: 'ASC')
-		else
-			Todo.order(title: 'ASC')
-		end
-	end
+class TodosController
+  def index(params = nil)
+    if params
+      Todo.where('completed = ?', params[:completed]).order(title: 'ASC')
+    else
+      Todo.order(title: 'ASC')
+    end
+  end
 
-	def create(params)
-		Todo.create!(params)
-	end
+  def create(params)
+    Todo.create!(params)
+  end
 
-	def update(params)
-		find_todo(params)
-		if @todo
-			@todo.update(completed: params[:completed])
-		else
-			not_found
-		end
-	end
+  def update(params)
+    find_todo(params)
+    if @todo
+      @todo.update(completed: params[:completed])
+    else
+      not_found
+    end
+  end
 
-	def destroy(params)
-		find_todo(params)
-		@todo.try(:destroy) || not_found
-	end
+  def destroy(params)
+    find_todo(params)
+    @todo.try(:destroy) || not_found
+  end
 
-	private
+  private
 
-	def find_todo(params)
-		@todo = Todo.find_by(id: params[:id])
-	end
+  def find_todo(params)
+    @todo = Todo.find_by(id: params[:id])
+  end
 
-	def not_found
-		'Todo not found'
-	end
+  def not_found
+    'Todo not found'
+  end
 end

@@ -6,4 +6,3 @@ require './config/database_connection'
 class Minitest::Test
   include FactoryBot::Syntax::Methods
 end
-

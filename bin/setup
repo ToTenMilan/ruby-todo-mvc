@@ -10,18 +10,21 @@ def system!(*args)
 end
 
 chdir APP_ROOT do
-	system('bundle check') || system!('bundle install')
-	
-	system! 'rake db:create'
-	system! 'rake db:migrate'
-	system! 'rake db:test:prepare'
+  system('bundle check') || system!('bundle install')
 
-	puts '== running tests'
-	system 'rake test'
+  system! 'rake db:create'
+  system! 'rake db:migrate'
+  system! 'rake db:test:prepare'
 
-	puts '== seed data'
-	system 'rake db:seed'
+  puts '== running tests'
+  system 'rake test'
 
-	puts "== Enjoy!\n"
-	system! './main.rb'
+  puts '== seed data'
+  system 'rake db:seed'
+
+  puts "== Enjoy!\n"
+  system! './main.rb'
+rescue SystemExit, Interrupt
+  puts "Exiting..."
+  exit
 end
