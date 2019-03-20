@@ -3,4 +3,4 @@ def db_conf
   YAML.load(File.read(db_conf_file))
 end
 
-ActiveRecord::Base.establish_connection(db_conf['test'])
+ActiveRecord::Base.establish_connection(db_conf[ENV['environment']])

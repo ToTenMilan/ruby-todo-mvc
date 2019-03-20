@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'highline'
 require './app/controllers/todos_controller'
+require './config/environments/development'
 require './config/database_connection'
 require './app/helpers/todos_helper'
 require './lib/string'
