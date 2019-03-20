@@ -2,11 +2,9 @@ require_relative '../models/todo'
 
 class TodosController
   def index(params = nil)
-    if params
-      Todo.where('completed = ?', params[:completed]).order(title: 'ASC')
-    else
+    params ?
+      Todo.where(completed: params[:completed]).order(title: 'ASC') :
       Todo.order(title: 'ASC')
-    end
   end
 
   def create(params)
@@ -15,11 +13,7 @@ class TodosController
 
   def update(params)
     find_todo(params)
-    if @todo
-      @todo.update(completed: params[:completed])
-    else
-      not_found
-    end
+    @todo&.update(completed: params[:completed]) || not_found
   end
 
   def destroy(params)

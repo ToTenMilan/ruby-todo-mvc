@@ -6,8 +6,8 @@ FactoryBot.define do
   end
 
   factory :wash_dishes, parent: :todo do
-  	title { 'wash dishes' }
-  	description { 'cleanup the whole sink' }
-  	completed { false }
+    title { 'wash dishes' }
+    description { 'cleanup the whole sink' }
+    completed { false }
   end
 end
